@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MacroMachine.Models;
+using Microsoft.Owin.Security.Facebook;
 
 namespace MacroMachine.Controllers
 {
@@ -12,12 +13,17 @@ namespace MacroMachine.Controllers
     public class ProfileController : Controller
     {
         // GET: Profile
+        [HttpGet]
         public ActionResult Index()
         {
-            var user = ApplicationUser.Get(User.Identity.Name);
+            var profileViewModel = new ProfileIndexViewModel(User.Identity.Name);
+            return View(profileViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Index(ApplicationUser applicationUser)
+        {
             return View();
-       
-        //TODO don't worry about checking for the profile yet..literally just worry about creating/editing the profile fields here, use some jquery
-    }
+        }
     }
 }

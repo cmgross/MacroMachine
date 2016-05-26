@@ -13,21 +13,32 @@ namespace MacroMachine.Models
     [PrimaryKey("Id", AutoIncrement = false)]
     public class ApplicationUser : IdentityUser
     {
-        //TODO add new properties here
+        //TODO add new properties here,update them in DB designer
         public bool Metric { get; set; }
-        public bool BiologicalSex { get; set; } //0 is female, 1 is male
-                                                //https://docs.google.com/spreadsheets/d/1WD4VPR0REqK5LndP564fFPYAU1HUXruXVGAKqCCkWIg/edit#gid=1209178080
-                                                //See MacroMachine.Models.IdentityModel
-                                                //Metric Height - stored
-                                                //Imperial Height - calculated [ignore]
-                                                //Birthdate
-                                                //Age - calcualted [ignore]
-                                                //Metric BMR kilajoules - calculated [ignore]
-                                                //Imperial BMR calories - calculated [ignore]
-                                                //ActivityLevel - needs to be FK to other table
-                                                //Metric Estimated Maintenance kilajoules using start weight
-                                                //Target change in kilos can be positive and negative
-                                                //Target change in lbs - calculated [ignore]
+        public char BiologicalSex { get; set; } //M,F,NULL
+        public DateTime? Birthday { get; set; }
+        public decimal? Height { get; set; }
+
+        //TODO stored fields first, THEN calculated fields
+
+        #region CalculatedProperties
+        public int Age => GetAge(Birthday);
+
+        //Imperial Height - calculated [ignore]
+        //Age - calcualted [ignore]
+        //Metric BMR kilajoules - calculated [ignore]
+        //Imperial BMR calories - calculated [ignore]
+        #endregion
+        //https://docs.google.com/spreadsheets/d/1WD4VPR0REqK5LndP564fFPYAU1HUXruXVGAKqCCkWIg/edit#gid=1209178080
+
+        //Metric Height - stored
+
+
+
+        //ActivityLevel - needs to be FK to other table
+        //Metric Estimated Maintenance kilajoules using start weight
+        //Target change in kilos can be positive and negative
+        //Target change in lbs - calculated [ignore]
 
         //not sures: Protein/lb/kilo, fat%, 
         //        1 Calorie = 4.18 kilojoules
@@ -44,7 +55,7 @@ namespace MacroMachine.Models
         //, , birthday, , starting weight,
         //activity level (need from greg 
 
-        //Metric vs Imperial
+
         //affects height (store as CM), weight (store as kg), protein per lb/kilo (store as kg)
         //lbs/kils gain or lose per week
 
@@ -64,12 +75,24 @@ namespace MacroMachine.Models
             }
         }
 
+        #region Helpers
         private static string UserNameHelper(string userName)
         {
             int index = userName.IndexOf("@", StringComparison.Ordinal);
             userName = userName.Insert(index + "@".Length, "@");
             return userName;
         }
+        private static int GetAge(DateTime? dateOfBirth)
+        {
+            if (!dateOfBirth.HasValue) return 0;
+            var now = DateTime.UtcNow;
+            return now.Year - dateOfBirth.Value.Year -
+                (
+                    now.Month > dateOfBirth.Value.Month ||
+                    (now.Month == dateOfBirth.Value.Month && now.Day >= dateOfBirth.Value.Day) ? 0 : 1
+                );
+        }
+        #endregion
 
         //https://github.com/cmgross/Dauber/blob/master/DAL/Coach.cs
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -87,10 +110,10 @@ namespace MacroMachine.Models
             : base("db", throwIfV1Schema: false)
         {
             //PM> sqllocaldb.exe stop MSSQLLocalDB
-//            LocalDB instance "MSSQLLocalDB" stopped.
+            //            LocalDB instance "MSSQLLocalDB" stopped.
 
-//            PM > sqllocaldb.exe delete MSSQLLocalDB
-//LocalDB instance "MSSQLLocalDB" deleted.
+            //            PM > sqllocaldb.exe delete MSSQLLocalDB
+            //LocalDB instance "MSSQLLocalDB" deleted.
         }
 
         public static ApplicationDbContext Create()
