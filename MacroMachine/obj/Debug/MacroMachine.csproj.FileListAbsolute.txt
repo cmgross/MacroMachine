@@ -80,4 +80,3 @@ C:\VS\Visual Studio 2015\Projects\MacroMachine\MacroMachine\bin\Microsoft.Owin.S
 C:\VS\Visual Studio 2015\Projects\MacroMachine\MacroMachine\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\VS\Visual Studio 2015\Projects\MacroMachine\MacroMachine\obj\Debug\MacroMachine.dll
 C:\VS\Visual Studio 2015\Projects\MacroMachine\MacroMachine\obj\Debug\MacroMachine.pdb
-C:\VS\Visual Studio 2015\Projects\MacroMachine\MacroMachine\obj\Debug\MacroMachine.csprojResolveAssemblyReference.cache

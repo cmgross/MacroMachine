@@ -15,13 +15,15 @@ namespace MacroMachine.Models
         public ProfileIndexViewModel(string userName)
         {
             ApplicationUser = ApplicationUser.Get(userName);
-            var sexes = new char?[]{'M', 'F', null};
+            var sexes = new[]{"M", "F", null};
             Sexes = sexes.Select(s => new SelectListItem
             {
-                Text = s.ToString(),
-                Value = s.ToString(),
+                Text = s,
+                Value = s,
                 Selected = s == ApplicationUser.BiologicalSex
             }).ToList();
+
+            
         }
     }
 }

@@ -15,7 +15,7 @@ namespace MacroMachine.Models
     {
         //TODO add new properties here,update them in DB designer
         public bool Metric { get; set; }
-        public char BiologicalSex { get; set; } //M,F,NULL
+        public string BiologicalSex { get; set; } //M,F,NULL
         public DateTime? Birthday { get; set; }
         public decimal? Height { get; set; }
 

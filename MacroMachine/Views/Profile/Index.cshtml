@@ -1,0 +1,25 @@
+﻿@model MacroMachine.Models.ProfileIndexViewModel
+@{
+    ViewBag.Title = "Edit Profile";
+}
+
+<h2>Edit Profile</h2>
+
+@*https://eonasdan.github.io/bootstrap-datetimepicker/*@
+
+@using (Html.BeginForm("Index", "Profile", FormMethod.Post, new {id = "editProfile", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+
+     <div class="form-group">
+            @Html.LabelFor(m => m.ApplicationUser.BiologicalSex, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ApplicationUser.BiologicalSex, Model.Sexes , new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ApplicationUser.BiologicalSex, "", new { @class = "text-danger" })
+            </div>
+        </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
