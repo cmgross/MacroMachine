@@ -22,8 +22,6 @@ namespace MacroMachine.Models
                 Value = s,
                 Selected = s == ApplicationUser.BiologicalSex
             }).ToList();
-
-            
         }
     }
 }

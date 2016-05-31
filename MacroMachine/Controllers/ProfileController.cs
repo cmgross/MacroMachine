@@ -21,7 +21,7 @@ namespace MacroMachine.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(ApplicationUser applicationUser)
+        public ActionResult Index(ApplicationUser profile)
         {
             return View();
         }
