@@ -14,7 +14,7 @@ namespace MacroMachine
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/moment.js",
-                        "~/Scripts/jquery-birthday-picker.js"));
+                        "~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/profile").Include(
                         "~/Scripts/profile.js"));
@@ -30,7 +30,8 @@ namespace MacroMachine
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-datepicker3.css"));
         }
     }
 }

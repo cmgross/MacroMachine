@@ -22,7 +22,7 @@ namespace MacroMachine.Models
         //TODO stored fields first, THEN calculated fields
 
         #region CalculatedProperties
-        public int Age => GetAge(Birthday);
+        
 
         //Imperial Height - calculated [ignore]
         //Age - calcualted [ignore]
@@ -75,6 +75,20 @@ namespace MacroMachine.Models
             }
         }
 
+        public static void UpdateUser(ApplicationUser user)
+        {
+            var userName = UserNameHelper(user.UserName);
+            var metric = user.Metric ? "1" : "0";
+            var query = $"UPDATE AspNetUsers SET Birthday = '{user.Birthday}', " +
+                        $"BiologicalSex = '{user.BiologicalSex}', " +
+                        $"Metric = {metric} " +
+                        $"WHERE UserName='{userName}'";
+            using (var db = new Database("db"))
+            {
+                db.Execute(query);
+            }
+        }
+
         #region Helpers
         private static string UserNameHelper(string userName)
         {
@@ -82,16 +96,7 @@ namespace MacroMachine.Models
             userName = userName.Insert(index + "@".Length, "@");
             return userName;
         }
-        private static int GetAge(DateTime? dateOfBirth)
-        {
-            if (!dateOfBirth.HasValue) return 0;
-            var now = DateTime.UtcNow;
-            return now.Year - dateOfBirth.Value.Year -
-                (
-                    now.Month > dateOfBirth.Value.Month ||
-                    (now.Month == dateOfBirth.Value.Month && now.Day >= dateOfBirth.Value.Day) ? 0 : 1
-                );
-        }
+       
         #endregion
 
         //https://github.com/cmgross/Dauber/blob/master/DAL/Coach.cs

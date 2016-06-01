@@ -23,7 +23,8 @@ namespace MacroMachine.Controllers
         [HttpPost]
         public ActionResult Index(ApplicationUser profile)
         {
-            return View();
+            ApplicationUser.UpdateUser(profile);
+            return RedirectToAction("Index");
         }
     }
 }

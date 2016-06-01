@@ -5,38 +5,53 @@
 
 <h2>Edit Profile</h2>
 
-@*https://eonasdan.github.io/bootstrap-datetimepicker/*@
 
 @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { id = "editProfile", role = "form" }))
 {
     @Html.AntiForgeryToken()
-
-    @*<div class="form-group">
-            @Html.LabelFor(m => m.ApplicationUser.BiologicalSex, new { @class = "control-label col-md-2" })
+    @Html.HiddenFor(m => m.UserName, Model.UserName)
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(m => m.BiologicalSex, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.ApplicationUser.BiologicalSex, Model.Sexes, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ApplicationUser.BiologicalSex, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(m => m.BiologicalSex, Model.Sexes, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.BiologicalSex, "", new {@class = "text-danger"})
             </div>
-        </div>*@
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.ApplicationUser.Birthday, new { @class = "control-label col-md-2" })
-        <div class="col-md-10" >
-            @Html.EditorFor(m => m.ApplicationUser.Birthday, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.ApplicationUser.Birthday, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.ApplicationUser.Age, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.ApplicationUser.Age, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Birthday, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Birthday, new { htmlAttributes = new { @class = "form-control", style = "width:425px", maxlength = "11" } })
+                @Html.ValidationMessageFor(m => m.Birthday, "", new {@class = "text-danger"})
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group">
+            @Html.Label("imperialOrMetric", "Imperial or Metric?", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.Metric, "false", new { id = "Imperial" })
+                @Html.Label("imperial", "Imperial")
+
+                @Html.RadioButtonFor(model => model.Metric, "true", new { id = "Metric" })
+                @Html.Label("metric", "Metric")
+            </div>
+        </div>
+
+       
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Age, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.Age, new {@class = "form-control"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default"/>
+            </div>
         </div>
     </div>
 }
