@@ -82,6 +82,7 @@ namespace MacroMachine.Models
             var query = $"UPDATE AspNetUsers SET Birthday = '{user.Birthday}', " +
                         $"BiologicalSex = '{user.BiologicalSex}', " +
                         $"Metric = {metric} " +
+                        $"Height = {user.Height} " +
                         $"WHERE UserName='{userName}'";
             using (var db = new Database("db"))
             {
